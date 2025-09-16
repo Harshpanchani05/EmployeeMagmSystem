@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36414.22 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeMagmSystem(EMS)", "EmployeeMagmSystem(EMS)\EmployeeMagmSystem(EMS).csproj", "{9E9B6FE4-9A41-43A7-86E4-A5E57F22C194}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9E9B6FE4-9A41-43A7-86E4-A5E57F22C194}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E9B6FE4-9A41-43A7-86E4-A5E57F22C194}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E9B6FE4-9A41-43A7-86E4-A5E57F22C194}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E9B6FE4-9A41-43A7-86E4-A5E57F22C194}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {64A67269-4359-4D1E-9C82-9ADD57B32135}
+	EndGlobalSection
+EndGlobal
