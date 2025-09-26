@@ -24,6 +24,7 @@ builder.Services.AddIdentity<Users, IdentityRole>(options =>
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

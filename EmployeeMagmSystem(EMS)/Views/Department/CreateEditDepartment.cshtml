@@ -1,0 +1,51 @@
+﻿@using EmployeeMagmSystem_EMS_.ViewModels.Department;
+@model DeparmentViewModel;
+
+@{
+    Layout ="_AdminLayout";
+
+}
+
+
+<section class="content-wrapper hold-transition register-page">
+    <div class="register-box">
+        <div class="card card-outline card-primary">
+            <div class="card-header text-center">
+                <a class="h3"><b>@(string.IsNullOrEmpty(Model.Id) ? "Add Department" : "Edit Department")</b></a>
+            </div>
+            <div class="card-body">
+                <form asp-action="CreaetEditDepartment" asp-controller="Department" method="post"   >
+                    @Html.AntiForgeryToken()
+
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="mb-3">
+                        <label asp-for="Name" class="form-label">Department Name</label>
+                        <input type="text" asp-for="Name" class="form-control" placeholder="Department name" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                  
+                        <div class="col-8 mb-2">
+                            <div class="icheck-primary">
+                                <input type="checkbox" id="remember" asp-for="IsActive">
+                                <label for="remember" asp-for="IsActive">
+                                     IsActive
+                                </label>
+                            </div>
+                        </div>
+                    
+                    <div class="mb-2">
+                        <button type="submit" class="btn btn-primary" >
+                            @(string.IsNullOrEmpty(Model.Id) ? "Add " : "Update ")
+                        </button>
+                        <a asp-action="ListDepartment" class="btn btn-secondary">Cancel</a>
+                         
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+   
+    </section>

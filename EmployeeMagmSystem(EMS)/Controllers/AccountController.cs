@@ -8,9 +8,9 @@ namespace EmployeeMagmSystem_EMS_.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly SignInManager<Users> signInManager;
-        private readonly UserManager<Users> userManager;
-        private readonly RoleManager<IdentityRole> roleManager;
+        public SignInManager<Users> signInManager { get; }
+        public UserManager<Users> userManager { get; }
+        public RoleManager<IdentityRole> roleManager { get; }
 
         public AccountController(SignInManager<Users> signInManager, UserManager<Users> userManager, RoleManager<IdentityRole> roleManager)
         {
@@ -36,10 +36,10 @@ namespace EmployeeMagmSystem_EMS_.Controllers
             var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
             if (result.Succeeded)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Admin", "Home");
             }
 
-            ModelState.AddModelError("", "Invaild Login Attempt.");
+            ModelState.AddModelError("", "Invaild Email or Password.");
             return View(model);
         }
         [HttpGet]
@@ -85,6 +85,82 @@ namespace EmployeeMagmSystem_EMS_.Controllers
                 ModelState.AddModelError("",error.Description);
             }
             return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult VerifyEmail()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> VerifyEmail(VerifyEmailViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var user = await userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+            {
+                ModelState.AddModelError("", "User Not Found");
+                return View(model);
+            }
+            else
+            {
+                return RedirectToAction("ChangePassword", "Account", new { username = user.UserName });
+            }
+        }
+
+        [HttpGet]
+        public IActionResult ChangePassword(string userName)
+        {
+            if (string.IsNullOrEmpty(userName))
+            {
+                return RedirectToAction("VerifyEmail", "Account");
+            }
+            return View(new ChangePasswordViewModel { Email = userName });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Password not match.");
+                return View(model);
+            }
+            var user = await userManager.FindByEmailAsync(model.Email);
+
+            if (user == null)
+            {
+                ModelState.AddModelError("", "User not found");
+                return View(model);
+            }
+            var result = await userManager.RemovePasswordAsync(user);
+            if (result.Succeeded)
+            {
+                result = await userManager.AddPasswordAsync(user, model.NewPassword);
+                return RedirectToAction("Login", "Account");
+            }
+            else
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+                return View(model);
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            await signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

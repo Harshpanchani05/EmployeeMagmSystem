@@ -1,0 +1,42 @@
+﻿@using EmployeeMagmSystem_EMS_.ViewModels
+@model RoleViewModel
+
+@{
+    Layout = "_AdminLayout";
+   
+}
+
+<div>
+<section class="content-wrapper hold-transition register-page">
+    <div class="register-box">
+        <div class="card card-outline card-primary">
+            <div class="card-header text-center">
+                <a class="h3"><b>@(string.IsNullOrEmpty(Model.Id) ? "Add Role" : "Edit Role")</b></a>
+            </div>
+            <div class="card-body">
+                <form asp-action="SaveRole" asp-controller="Administration" method="post">
+                    @Html.AntiForgeryToken()
+
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="mb-3">
+                        <label asp-for="RoleName" class="form-label">Role Name</label>
+                        <input type="text" asp-for="RoleName" class="form-control" placeholder="Role name" />
+                        <span asp-validation-for="RoleName" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-2">
+                        <button type="submit" class="btn btn-primary">
+                            @(string.IsNullOrEmpty(Model.Id) ? "Add " : "Update")
+                        </button>
+                        <a asp-action="ListRoles" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+</div>
+

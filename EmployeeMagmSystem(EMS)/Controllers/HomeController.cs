@@ -17,6 +17,10 @@ namespace EmployeeMagmSystem_EMS_.Controllers
         {
             return View();
         }
+        public IActionResult Admin()
+        {
+            return View();
+        }
 
         public IActionResult Privacy()
         {
@@ -28,5 +32,6 @@ namespace EmployeeMagmSystem_EMS_.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+       
     }
 }

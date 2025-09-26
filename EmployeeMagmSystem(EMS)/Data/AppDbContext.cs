@@ -6,10 +6,13 @@ namespace EmployeeMagmSystem_EMS_.Data
 {
     public class AppDbContext : IdentityDbContext<Users>
     {
-        public AppDbContext(DbContextOptions options):base (options)
+        public AppDbContext(DbContextOptions options) : base(options)
         {
-            
+
         }
         public DbSet<Users> Users { get; set; }
+        public DbSet<Department> Department { get; set; }
+
+
     }
 }

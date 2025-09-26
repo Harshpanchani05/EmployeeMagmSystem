@@ -1,0 +1,66 @@
+﻿@using EmployeeMagmSystem_EMS_.Models;
+@model List<Department>;
+
+@{
+    ViewBag.Title = "All Department";
+    Layout = "_AdminLayout";
+}
+
+<section class="content-wrapper">
+
+    <div class="content-header">
+        <h1>Department Manage</h1>
+        </div>
+    <div class=" container-fluid">
+        <div class="card m-3">
+            <div class="card-header">
+                <h3 class="card-title">All Department</h3>
+
+                <div class="card-tools">
+                    <a class="btn btn-primary" style="width:auto" asp-action="CreateDepartment" asp-controller="Department">
+                        Create Department
+                    </a>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body p-0">
+                <table class="table ">
+                    <thead>
+                        <tr>
+                            <th style="width: 10px">No.</th>
+                            <th>Department Name</th>
+                            <th style="text-align:right;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            @{
+                                int count = 1;  // Start numbering
+
+                           @foreach (var department in Model)
+                            {
+                                <tr>
+                                    <td>@count</td>
+                                    <td>@department.Name</td>
+                                    <td style="text-align:right;">
+                                        <!-- Delete Button -->
+                                        <a class="btn btn-primary" asp-action="EditDepartment" asp-controller="Department" asp-route-id="@department.Id">Edit</a>
+                                        <button class="btn btn-danger" onclick="openDeleteModal('@department.Id', '@department.Name')">
+                                            Delete
+                                        </button>
+                                        <!-- Hidden Delete Form -->
+                                        <form id="deleteForm_@department.Id" asp-action="DeleteDepartment" asp-route-id="@department.Id" method="post" style="display:none;">
+                                        </form>
+                                    </td>
+                                </tr>
+                                count++;
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+</section>
+

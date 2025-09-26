@@ -1,0 +1,113 @@
+﻿
+@if(TempData["AlertMessage"] !=null)
+{
+    <style>
+        .alert {
+            position: absolute;
+            top: 50px;
+            right: 280px;
+        }
+
+     </style>
+     <div class="alert">
+    <div class="custom-toast">
+       
+        <div class="toast-content">
+            <i class="fa-solid fa-check check" aria-hidden="true"></i>
+            <div class="message">
+                <span class="text text-1">Success</span>
+                <span class="text text-2">@TempData["AlertMessage"]</span>
+            </div>
+        </div>
+        
+
+         <button class="close" type="button" data-dismiss="alert">
+                <samp>&times;</samp>
+            </button> 
+        
+        <div class="progress"></div>
+        </div>
+    </div>
+}
+else if (TempData["AlertMessageWroag"] != null)
+{
+    <style>
+        .alert {
+            position: absolute;
+            top: 50px;
+            right: 250px;
+        }
+            .custom-toast .progress:before
+        {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            height: 100%;
+            width: 100%;
+            background-color:Red;
+        }
+        
+    </style>
+    <div class="alert">
+        <div class="custom-toast" style="border-left: 6px solid red;">
+
+            <div class="toast-content">
+                <i class="fa-solid fa-exclamation check" aria-hidden="true" style="background-color: red;"></i>
+                <div class="message">
+                    <span class="text text-1" style="color:red;">Error</span>
+                    <span class="text text-2">@TempData["AlertMessageWroag"]</span>
+                </div>
+            </div>
+
+
+            <button class="close" type="button" data-dismiss="alert">
+                <samp>&times;</samp>
+            </button>
+
+            <div class="progress"></div>
+        </div>
+    </div>
+}
+
+
+
+
+
+@section Scripts {
+    <script src="~/js/successPopShow.js"></script>
+    <script>
+             var $toast = $(".custom-toast"),$closeIcon = $(".custom-toast .close"),$progress = $(".custom-toast .progress"),timer1, timer2;
+
+        // Show toast automatically if it exists (for TempData alert)
+        if ($toast.length) {
+            $toast.addClass("active");
+            $progress.addClass("active");
+
+            timer1 = setTimeout(function () {
+                $toast.removeClass("active");
+            }, 5000);
+
+            timer2 = setTimeout(function () {
+                $progress.removeClass("active");
+            }, 5300);
+        }
+
+        // Close button click
+        $closeIcon.on("click", function () {
+            $toast.removeClass("active");
+            setTimeout(function () {
+                $progress.removeClass("active");
+            }, 300);
+
+            clearTimeout(timer1);
+            clearTimeout(timer2);
+        });
+            window.setTimeout(function () {
+            $(".alert").fadeTo(500, 0).slideUp(500, function () {
+                $(this).remove();
+            });
+        }, 3000);
+    </script>
+} 
+ 

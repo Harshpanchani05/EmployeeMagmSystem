@@ -1,0 +1,70 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<IdentityRole>
+
+@{
+    ViewBag.Title = "All Roles";
+    Layout = "_AdminLayout";
+   
+}
+
+
+    <section class="content-wrapper">
+    <div class="content-header">
+        <h1>Role Manage</h1>
+    </div>
+
+        <div class=" container-fluid">
+            <div class="card m-3">
+        <div class="card-header">
+                <h3 class="card-title">All Role</h3>
+
+            <div class="card-tools">
+                    <a class="btn btn-primary" style="width:auto" asp-action="CreateRole" asp-controller="Administration">
+                        Create Role
+                    </a> 
+            </div>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body p-0">
+            <table class="table ">
+                <thead>
+                    <tr>
+                        <th style="width: 10px">#</th>
+                        <th>Role Name</th>
+                            <th style="text-align:right;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+            @if (Model.Any())
+            {
+                    int count = 1; 
+                            foreach (var role in Model)
+                            {
+                                <tr>
+                                    <td>@count</td>
+                                    
+                                    <td>@role.Name</td>
+                                    <td style="text-align:right;">
+                                        <!-- Delete Button -->
+                                        <a class="btn btn-primary" asp-action="EditRole" asp-controller="Administration" asp-route-id="@role.Id">Edit</a>
+                                        <button class="btn btn-danger" onclick="openDeleteModal('@role.Id', '@role.Name')">
+                                            Delete
+                                        </button>
+                                        <!-- Hidden Delete Form -->
+                                        <form id="deleteForm_@role.Id" asp-action="DeleteRole" asp-route-id="@role.Id" method="post" style="display:none;">
+                                        </form>
+                                    </td>
+                                </tr>
+                                count++;
+                            }
+                            }
+                </tbody>
+            </table>
+               
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+    </div>
+    
+</section>
